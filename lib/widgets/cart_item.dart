@@ -53,7 +53,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 // Product Image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
+                  child: Image.asset(
                     widget.item.product.imageUrl,
                     width: 70,
                     height: 70,

@@ -17,9 +17,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
@@ -32,33 +30,25 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                    child: Image.network(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
+                    child: Image.asset(
                       product.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-                          color: Colors.grey[300],
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          ),
-                        );
-                      },
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           color: Colors.grey[300],
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.image, size: 40, color: Colors.grey[600]),
+                              Icon(
+                                Icons.image,
+                                size: 40,
+                                color: Colors.grey[600],
+                              ),
                               SizedBox(height: 4),
                               Text(
                                 'Gambar tidak\ntersedia',
@@ -81,8 +71,8 @@ class ProductCard extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: product.category == 'Roti' 
-                            ? Colors.orange[600] 
+                        color: product.category == 'Roti'
+                            ? Colors.orange[600]
                             : Colors.pink[600],
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -102,7 +92,10 @@ class ProductCard extends StatelessWidget {
                       top: 8,
                       right: 8,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red[600],
                           borderRadius: BorderRadius.circular(10),
@@ -120,7 +113,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Product Details
             Expanded(
               flex: 2,
@@ -141,7 +134,7 @@ class ProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4),
-                    
+
                     // Product Description
                     Expanded(
                       child: Text(
@@ -156,7 +149,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    
+
                     // Price and Add Button
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,11 +171,11 @@ class ProductCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        
+
                         // Add to Cart Button
                         Material(
-                          color: product.isAvailable 
-                              ? Colors.orange[600] 
+                          color: product.isAvailable
+                              ? Colors.orange[600]
                               : Colors.grey[400],
                           borderRadius: BorderRadius.circular(20),
                           child: InkWell(

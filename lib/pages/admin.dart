@@ -1,7 +1,9 @@
+import 'package:bakery_app/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:bakery_app/services/order_service.dart';
 import 'package:bakery_app/models/order_models.dart';
 import 'package:bakery_app/services/location_service.dart';
+import 'package:bakery_app/pages/admin_login.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -30,6 +32,14 @@ class _AdminPageState extends State<AdminPage> with SingleTickerProviderStateMix
       appBar: AppBar(
         title: Text('Admin Dashboard'),
         backgroundColor: Colors.orange[700],
+        actions: [
+          // Logout Button
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: _showLogoutDialog,
+            tooltip: 'Logout',
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
@@ -59,6 +69,67 @@ class _AdminPageState extends State<AdminPage> with SingleTickerProviderStateMix
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(Icons.logout, color: Colors.orange[700]),
+              SizedBox(width: 8),
+              Text('Logout'),
+            ],
+          ),
+          content: Text('Apakah Anda yakin ingin keluar dari dashboard admin?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _handleLogout();
+              },
+              child: Text(
+                'Logout',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _handleLogout() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+      (route) => false,
+    );
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Icon(Icons.check_circle, color: Colors.white),
+            SizedBox(width: 8),
+            Text('Berhasil logout'),
+          ],
+        ),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     );
   }

@@ -101,8 +101,7 @@ class DatabaseHelper {
         'description':
             'Roti tawar gandum segar dengan tekstur lembut dan bergizi tinggi',
         'price': 15000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/8B4513/FFFFFF?text=Roti+Tawar',
+        'imageUrl': 'images/gandum.jpeg',
         'category': 'Roti',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -113,8 +112,7 @@ class DatabaseHelper {
         'description':
             'Croissant klasik dengan mentega premium, berlapis dan renyah',
         'price': 8000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/DAA520/FFFFFF?text=Croissant',
+        'imageUrl': 'images/croissant.jpeg',
         'category': 'Roti',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -124,8 +122,7 @@ class DatabaseHelper {
         'name': 'Kue Blackforest',
         'description': 'Kue coklat lembut dengan cherry segar dan krim whip',
         'price': 85000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/8B0000/FFFFFF?text=Blackforest',
+        'imageUrl': 'images/blackforest.jpeg',
         'category': 'Kue',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -135,8 +132,7 @@ class DatabaseHelper {
         'name': 'Donat Glazed',
         'description': 'Donat lembut dengan glazed manis yang menggugah selera',
         'price': 5000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/DEB887/FFFFFF?text=Donat',
+        'imageUrl': 'images/donat.jpeg',
         'category': 'Roti',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -147,8 +143,7 @@ class DatabaseHelper {
         'description':
             'Kue tiramisu dengan rasa kopi yang khas dan tekstur lembut',
         'price': 95000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/8FBC8F/FFFFFF?text=Tiramisu',
+        'imageUrl': 'images/tiramisu.jpeg',
         'category': 'Kue',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -159,8 +154,7 @@ class DatabaseHelper {
         'description':
             'Roti manis dengan isian coklat melimpah dan topping coklat',
         'price': 12000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/A0522D/FFFFFF?text=Roti+Coklat',
+        'imageUrl': 'images/coklat.jpeg',
         'category': 'Roti',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -170,8 +164,7 @@ class DatabaseHelper {
         'name': 'Red Velvet Cake',
         'description': 'Kue red velvet dengan cream cheese frosting yang lezat',
         'price': 120000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/DC143C/FFFFFF?text=Red+Velvet',
+        'imageUrl': 'images/red velvet.jpeg',
         'category': 'Kue',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),
@@ -181,8 +174,7 @@ class DatabaseHelper {
         'name': 'Roti Sobek',
         'description': 'Roti sobek lembut dengan tekstur yang mudah disobek',
         'price': 18000.0,
-        'imageUrl':
-            'https://via.placeholder.com/200x150/F4A460/FFFFFF?text=Roti+Sobek',
+        'imageUrl': 'images/sobek.jpeg',
         'category': 'Roti',
         'isAvailable': 1,
         'createdAt': DateTime.now().toIso8601String(),

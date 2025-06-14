@@ -6,7 +6,7 @@ import 'package:bakery_app/services/product_service.dart';
 import 'package:bakery_app/widgets/product_card.dart';
 import 'package:bakery_app/widgets/cart_badge.dart';
 import 'cart.dart';
-import 'admin.dart';
+import 'admin_login.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AdminPage()),
+                MaterialPageRoute(builder: (context) => AdminLoginPage()),
               );
             },
           ),

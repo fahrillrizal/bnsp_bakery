@@ -18,7 +18,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   final _notesController = TextEditingController();
-  
+
   Position? _currentPosition;
   bool _isLoadingLocation = false;
   bool _isSubmitting = false;
@@ -103,13 +103,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
         items: List.from(cartService.items),
         totalAmount: cartService.totalAmount,
         orderDate: DateTime.now(),
-        notes: _notesController.text.trim().isNotEmpty ? _notesController.text.trim() : null,
+        notes: _notesController.text.trim().isNotEmpty
+            ? _notesController.text.trim()
+            : null,
       );
 
       OrderService().addOrder(order);
       cartService.clearCart();
 
-      // Show success dialog
+      // Show success dialog dengan redirect ke homepage
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -136,7 +138,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('ID Pesanan:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                      'ID Pesanan:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     Text(order.id, style: TextStyle(fontFamily: 'monospace')),
                     SizedBox(height: 8),
                     Text('Total: Rp ${order.totalAmount.toStringAsFixed(0)}'),
@@ -153,11 +158,22 @@ class _CheckoutPageState extends State<CheckoutPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Close dialog
+                // Navigate back to homepage and clear all previous routes
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/', // Assuming your homepage route is '/'
+                  (Route<dynamic> route) => false,
+                );
               },
-              child: Text('OK'),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.orange[700],
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text('Kembali ke Beranda'),
             ),
           ],
         ),
@@ -237,40 +253,44 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ],
             ),
             SizedBox(height: 16),
-            ...cartService.items.map((item) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
+            ...cartService.items
+                .map(
+                  (item) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.product.name,
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
+                              if (item.notes?.isNotEmpty == true)
+                                Text(
+                                  'Catatan: ${item.notes}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Text('${item.quantity}x'),
+                        SizedBox(width: 12),
                         Text(
-                          item.product.name,
+                          'Rp ${item.totalPrice.toStringAsFixed(0)}',
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
-                        if (item.notes?.isNotEmpty == true)
-                          Text(
-                            'Catatan: ${item.notes}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[600],
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
                       ],
                     ),
                   ),
-                  Text('${item.quantity}x'),
-                  SizedBox(width: 12),
-                  Text(
-                    'Rp ${item.totalPrice.toStringAsFixed(0)}',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            )).toList(),
+                )
+                .toList(),
             Divider(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -499,7 +519,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange[600],
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                       ),
                     ),
                   ],
@@ -534,7 +557,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
             TextFormField(
               controller: _notesController,
               decoration: InputDecoration(
-                hintText: 'Tambahkan catatan khusus untuk pesanan Anda (opsional)',
+                hintText:
+                    'Tambahkan catatan khusus untuk pesanan Anda (opsional)',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

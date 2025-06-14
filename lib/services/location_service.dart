@@ -2,37 +2,45 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class LocationService {
-  static Future<Position?> getCurrentLocation() async {
+  // Tambahkan error handling yang lebih baik
+  static Future<Position> getCurrentLocation() async {
     try {
       // Check if location services are enabled
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        throw Exception('Layanan lokasi tidak aktif');
+        // Location services are not enabled don't continue
+        await Geolocator.openLocationSettings();
+        throw Exception('Layanan lokasi tidak aktif. Silakan aktifkan GPS.');
       }
 
-      // Check permissions
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          throw Exception('Izin lokasi ditolak');
+          throw Exception(
+            'Izin lokasi ditolak. Aplikasi memerlukan akses lokasi untuk pengiriman.',
+          );
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        throw Exception('Izin lokasi ditolak secara permanen. Silakan aktifkan dari pengaturan aplikasi.');
+        await Geolocator.openAppSettings();
+        throw Exception(
+          'Izin lokasi ditolak permanen. Silakan aktifkan dari pengaturan aplikasi.',
+        );
       }
 
-      // Get current position
+      // When we reach here, permissions are granted and we can
+      // continue accessing the position of the device.
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
-        timeLimit: Duration(seconds: 10),
+        timeLimit: Duration(seconds: 15), // Increase timeout
       );
 
       return position;
     } catch (e) {
       print('Error getting location: $e');
-      return null;
+      rethrow; // Re-throw untuk handling di UI
     }
   }
 
